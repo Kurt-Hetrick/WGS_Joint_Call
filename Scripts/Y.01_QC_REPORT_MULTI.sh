@@ -8,7 +8,7 @@ mkdir -p $CORE_PATH/$PROJECT/REPORTS/QC_REPORTS
 
 # GRABBING WHOLE GENOME CONCORDANCE.
 
-ls $CORE_PATH/$PROJECT/REPORTS/CONCORDANCE/*_concordance.csv \
+ls $CORE_PATH/$PROJECT/REPORTS/CONCORDANCE/MULTI/*_concordance.csv \
 | awk '{print "awk","1",$0}' \
 | bash \
 | sort -r \
@@ -69,7 +69,7 @@ ls $CORE_PATH/$PROJECT/REPORTS/DEPTH_OF_COVERAGE/DEPTH_SUMMARY/*.autosomal.exon.
 
 # GRABBING TI/TV WHOLE GENOME, ALL
 
-ls $CORE_PATH/$PROJECT/REPORTS/TI_TV/WHOLE_GENOME/*_All_titv.txt \
+ls $CORE_PATH/$PROJECT/REPORTS/TI_TV_MS/WHOLE_GENOME/*_All_titv.txt \
 | awk 'BEGIN {OFS="\t"} {split($1,SMtag,"/");print "awk \x27 END {print \x22"SMtag[10]"\x22,$2,$6}\x27",$0}' \
 | bash \
 | sed 's/_WG_All_titv.txt//g' \
@@ -78,7 +78,7 @@ ls $CORE_PATH/$PROJECT/REPORTS/TI_TV/WHOLE_GENOME/*_All_titv.txt \
 
 # GRABBING TI/TV WHOLE GENOME, KNOWN
 
-ls $CORE_PATH/$PROJECT/REPORTS/TI_TV/WHOLE_GENOME/*_Known_titv.txt \
+ls $CORE_PATH/$PROJECT/REPORTS/TI_TV_MS/WHOLE_GENOME/*_Known_titv.txt \
 | awk 'BEGIN {OFS="\t"} {split($1,SMtag,"/");print "awk \x27 END {print \x22"SMtag[10]"\x22,$2,$6}\x27",$0}' \
 | bash \
 | sed 's/_WG_Known_titv.txt//g' \
@@ -87,7 +87,7 @@ ls $CORE_PATH/$PROJECT/REPORTS/TI_TV/WHOLE_GENOME/*_Known_titv.txt \
 
 # GRABBING TI/TV WHOLE GENOME, NOVEL
 
-ls $CORE_PATH/$PROJECT/REPORTS/TI_TV/WHOLE_GENOME/*_Novel_titv.txt \
+ls $CORE_PATH/$PROJECT/REPORTS/TI_TV_MS/WHOLE_GENOME/*_Novel_titv.txt \
 | awk 'BEGIN {OFS="\t"} {split($1,SMtag,"/");print "awk \x27 END {print \x22"SMtag[10]"\x22,$2,$6}\x27",$0}' \
 | bash \
 | sed 's/_WG_Novel_titv.txt//g' \
@@ -96,7 +96,7 @@ ls $CORE_PATH/$PROJECT/REPORTS/TI_TV/WHOLE_GENOME/*_Novel_titv.txt \
 
 # GRABBING TI/TV CODING, ALL
 
-ls $CORE_PATH/$PROJECT/REPORTS/TI_TV/CODING/*_All_titv.txt \
+ls $CORE_PATH/$PROJECT/REPORTS/TI_TV_MS/CODING/*_All_titv.txt \
 | awk 'BEGIN {OFS="\t"} {split($1,SMtag,"/");print "awk \x27 END {print \x22"SMtag[10]"\x22,$2,$6}\x27",$0}' \
 | bash \
 | sed 's/_Coding_All_titv.txt//g' \
@@ -105,7 +105,7 @@ ls $CORE_PATH/$PROJECT/REPORTS/TI_TV/CODING/*_All_titv.txt \
 
 # GRABBING TI/TV CODING, KNOWN
 
-ls $CORE_PATH/$PROJECT/REPORTS/TI_TV/CODING/*_Known_titv.txt \
+ls $CORE_PATH/$PROJECT/REPORTS/TI_TV_MS/CODING/*_Known_titv.txt \
 | awk 'BEGIN {OFS="\t"} {split($1,SMtag,"/");print "awk \x27 END {print \x22"SMtag[10]"\x22,$2,$6}\x27",$0}' \
 | bash \
 | sed 's/_Coding_Known_titv.txt//g' \
@@ -114,7 +114,7 @@ ls $CORE_PATH/$PROJECT/REPORTS/TI_TV/CODING/*_Known_titv.txt \
 
 # GRABBING TI/TV CODING, NOVEL
 
-ls $CORE_PATH/$PROJECT/REPORTS/TI_TV/CODING/*_Novel_titv.txt \
+ls $CORE_PATH/$PROJECT/REPORTS/TI_TV_MS/CODING/*_Novel_titv.txt \
 | awk 'BEGIN {OFS="\t"} {split($1,SMtag,"/");print "awk \x27 END {print \x22"SMtag[10]"\x22,$2,$6}\x27",$0}' \
 | bash \
 | sed 's/_Coding_Novel_titv.txt//g' \
@@ -124,10 +124,10 @@ ls $CORE_PATH/$PROJECT/REPORTS/TI_TV/CODING/*_Novel_titv.txt \
 # GENERATE PCT IN DBSNP FOR SNVS WHOLE GENOME
 
 ls $CORE_PATH/$PROJECT/SNV/MULTI/WHOLE_GENOME/PASS_VARIANT/*.vcf.gz \
-| awk '{split($1,SMtag,"/");print "zgrep -v \x22^#\x22","'$CORE_PATH'""/""'$PROJECT'""/SNV/MULTI/WHOLE_GENOME/PASS/"SMtag[11],\
+| awk '{split($1,SMtag,"/");print "zgrep -v \x22^#\x22","'$CORE_PATH'""/""'$PROJECT'""/SNV/MULTI/WHOLE_GENOME/PASS_VARIANT/"SMtag[11],\
 "| awk \x27{t++NR} {s+=($3~\x22rs\x22)} END {print \x22"SMtag[11]"\x22,(s/t*100)}\x27"}' \
 | bash \
-| sed 's/.WHOLE.GENOME.SNV.PASS.vcf.gz//g' \
+| sed 's/.WHOLE.GENOME.SNV.VARIANT.PASS.vcf.gz//g' \
 | sed 's/ /\t/g' \
 | awk 'BEGIN {print "SM_TAG""\t""PERCENT_SNV_WG_SNP138"} {print $1"\t"$2}' \
 >| $CORE_PATH/$PROJECT/TEMP/WG_SNV_PCT_DBSNP.txt
@@ -135,10 +135,10 @@ ls $CORE_PATH/$PROJECT/SNV/MULTI/WHOLE_GENOME/PASS_VARIANT/*.vcf.gz \
 # GENERATE PCT IN DBSNP FOR SNVS CODING
 
 ls $CORE_PATH/$PROJECT/SNV/MULTI/CODING/PASS_VARIANT/*.vcf.gz \
-| awk '{split($1,SMtag,"/");print "zgrep -v \x22^#\x22","'$CORE_PATH'""/""'$PROJECT'""/SNV/MULTI/CODING/PASS/"SMtag[11],\
+| awk '{split($1,SMtag,"/");print "zgrep -v \x22^#\x22","'$CORE_PATH'""/""'$PROJECT'""/SNV/MULTI/CODING/PASS_VARIANT/"SMtag[11],\
 "| awk \x27{t++NR} {s+=($3~\x22rs\x22)} END {print \x22"SMtag[11]"\x22,(s/t*100)}\x27"}' \
 | bash \
-| sed 's/.CODING.SNV.PASS.vcf.gz//g' \
+| sed 's/.CODING.SNV.VARIANT.PASS.vcf.gz//g' \
 | sed 's/ /\t/g' \
 | awk 'BEGIN {print "SM_TAG""\t""PERCENT_SNV_CODING_SNP138"} {print $1"\t"$2}' \
 >| $CORE_PATH/$PROJECT/TEMP/CODING_SNV_PCT_DBSNP.txt
@@ -146,7 +146,7 @@ ls $CORE_PATH/$PROJECT/SNV/MULTI/CODING/PASS_VARIANT/*.vcf.gz \
 # GENERATE PCT IN DBSNP FOR INDELS WHOLE GENOME
 
 ls $CORE_PATH/$PROJECT/INDEL/MULTI/WHOLE_GENOME/PASS_VARIANT/*.vcf.gz \
-| awk '{split($1,SMtag,"/");print "zgrep -v \x22^#\x22","'$CORE_PATH'""/""'$PROJECT'""/INDEL/MULTI/WHOLE_GENOME/PASS/"SMtag[11],\
+| awk '{split($1,SMtag,"/");print "zgrep -v \x22^#\x22","'$CORE_PATH'""/""'$PROJECT'""/INDEL/MULTI/WHOLE_GENOME/PASS_VARIANT/"SMtag[11],\
 "| awk \x27{count++NR} \
 {count_dbsnp+=($3~\x22rs\x22)} \
 {big_i_nm+=(length($5)-length($4))>15&&$5!~\x22,\x22} \
@@ -168,7 +168,7 @@ small_i_nm,(small_i_nm_dbsnp/small_i_nm*100),small_d_nm,(small_d_nm_dbsnp/small_
 ((big_i_nm+small_i_nm)/(big_d_nm+small_d_nm)),(big_i_nm/big_d_nm),(small_i_nm/small_d_nm),\
 (bp_two_i_nm/bp_three_i_nm),(bp_two_d_nm/bp_three_d_nm)}\x27"}' \
 | bash \
-| sed 's/.WHOLE.GENOME.INDEL.PASS.vcf.gz//g' \
+| sed 's/.WHOLE.GENOME.INDEL.VARIANT.PASS.vcf.gz//g' \
 | sed 's/ /\t/g' \
 | awk 'BEGIN {print "SM_TAG""\t""COUNT_INDEL_WG""\t""PERCENT_INDEL_WG_SNP138""\t"\
 "I_GT15_COUNT_WG""\t""I_GT15_PCT.DBSNP_WG""\t""D_GT15_COUNT_WG""\t""D_GT15_PCT.DBSNP_WG""\t"\
@@ -180,7 +180,7 @@ small_i_nm,(small_i_nm_dbsnp/small_i_nm*100),small_d_nm,(small_d_nm_dbsnp/small_
 # GENERATE PCT IN DBSNP FOR INDELS CODING
 
 ls $CORE_PATH/$PROJECT/INDEL/MULTI/CODING/PASS_VARIANT/*.vcf.gz \
-| awk '{split($1,SMtag,"/");print "zgrep -v \x22^#\x22","'$CORE_PATH'""/""'$PROJECT'""/INDEL/MULTI/CODING/PASS/"SMtag[11],\
+| awk '{split($1,SMtag,"/");print "zgrep -v \x22^#\x22","'$CORE_PATH'""/""'$PROJECT'""/INDEL/MULTI/CODING/PASS_VARIANT/"SMtag[11],\
 "| awk \x27{count++NR} \
 {count_dbsnp+=($3~\x22rs\x22)} \
 {big_i_nm+=(length($5)-length($4))>15&&$5!~\x22,\x22} \
@@ -202,7 +202,7 @@ small_i_nm,(small_i_nm_dbsnp/small_i_nm*100),small_d_nm,(small_d_nm_dbsnp/small_
 ((big_i_nm+small_i_nm)/(big_d_nm+small_d_nm)),(big_i_nm/big_d_nm),(small_i_nm/small_d_nm),\
 (bp_two_i_nm/bp_three_i_nm),(bp_two_d_nm/bp_three_d_nm)}\x27"}' \
 | bash \
-| sed 's/.CODING.INDEL.PASS.vcf.gz//g' \
+| sed 's/.CODING.INDEL.VARIANT.PASS.vcf.gz//g' \
 | sed 's/ /\t/g' \
 | awk 'BEGIN {print "SM_TAG""\t""COUNT_INDEL_CODING""\t""PERCENT_INDEL_CODING_SNP138""\t"\
 "I_GT15_COUNT_CODING""\t""I_GT15_PCT.DBSNP_CODING""\t""D_GT15_COUNT_CODING""\t""D_GT15_PCT.DBSNP_CODING""\t"\
@@ -214,10 +214,10 @@ small_i_nm,(small_i_nm_dbsnp/small_i_nm*100),small_d_nm,(small_d_nm_dbsnp/small_
 # GENERATE PCT IN DBSNP FOR MIXED WHOLE GENOME
 
 ls $CORE_PATH/$PROJECT/MIXED/MULTI/WHOLE_GENOME/PASS_VARIANT/*.vcf.gz \
-| awk '{split($1,SMtag,"/");print "zgrep -v \x22^#\x22","'$CORE_PATH'""/""'$PROJECT'""/MIXED/MULTI/WHOLE_GENOME/PASS/"SMtag[11],\
+| awk '{split($1,SMtag,"/");print "zgrep -v \x22^#\x22","'$CORE_PATH'""/""'$PROJECT'""/MIXED/MULTI/WHOLE_GENOME/PASS_VARIANT/"SMtag[11],\
 "| awk \x27{t++NR} {s+=($3~\x22rs\x22)} END {print \x22"SMtag[11]"\x22,t,(s/t*100)}\x27"}' \
 | bash \
-| sed 's/.WHOLE.GENOME.MIXED.PASS.vcf.gz//g' \
+| sed 's/.WHOLE.GENOME.MIXED.VARIANT.PASS.vcf.gz//g' \
 | sed 's/ /\t/g' \
 | awk 'BEGIN {print "SM_TAG""\t""COUNT_MIXED_WG""\t""PERCENT_MIXED_WG_SNP138"} {print $1"\t"$2"\t"$3}' \
 >| $CORE_PATH/$PROJECT/TEMP/WG_MIXED_PCT_DBSNP.txt
@@ -225,10 +225,10 @@ ls $CORE_PATH/$PROJECT/MIXED/MULTI/WHOLE_GENOME/PASS_VARIANT/*.vcf.gz \
 # GENERATE PCT IN DBSNP FOR MIXED CODING
 
 ls $CORE_PATH/$PROJECT/MIXED/MULTI/CODING/PASS_VARIANT/*.vcf.gz \
-| awk '{split($1,SMtag,"/");print "zgrep -v \x22^#\x22","'$CORE_PATH'""/""'$PROJECT'""/MIXED/MULTI/CODING/PASS/"SMtag[11],\
+| awk '{split($1,SMtag,"/");print "zgrep -v \x22^#\x22","'$CORE_PATH'""/""'$PROJECT'""/MIXED/MULTI/CODING/PASS_VARIANT/"SMtag[11],\
 "| awk \x27{t++NR} {s+=($3~\x22rs\x22)} END {if (s>=1&&t>=1) print \x22"SMtag[11]"\x22,t,(s/t*100); else if (s==\x22\x22&&t>=1) print \x22"SMtag[11]"\x22,t,\x22NaN\x22; else print \x22"SMtag[11]"\x22,\x22\x30\x22,\x22NaN\x22}\x27"}' \
 | bash \
-| sed 's/.CODING.MIXED.PASS.vcf.gz//g' \
+| sed 's/.CODING.MIXED.PASS.VARIANT.vcf.gz//g' \
 | sed 's/ /\t/g' \
 | awk 'BEGIN {print "SM_TAG""\t""COUNT_MIXED_CODING""\t""PERCENT_MIXED_CODING_SNP138"} {print $1"\t"$2"\t"$3}' \
 >| $CORE_PATH/$PROJECT/TEMP/CODING_MIXED_PCT_DBSNP.txt

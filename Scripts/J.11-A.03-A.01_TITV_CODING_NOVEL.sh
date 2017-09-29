@@ -39,7 +39,7 @@ START_TITV_CODING_NOVEL=`date '+%s'`
 
 zcat $CORE_PATH/$OUT_PROJECT/TEMP/$SM_TAG".QC.Coding.Novel.TiTv.vcf.gz" \
 | $SAMTOOLS_DIR/bcftools/vcfutils.pl qstats /dev/stdin \
->| $CORE_PATH/$OUT_PROJECT/REPORTS/TI_TV/CODING/$SM_TAG"_Coding_Novel_titv.txt"
+>| $CORE_PATH/$OUT_PROJECT/REPORTS/TI_TV_MS/CODING/$SM_TAG"_Coding_Novel_titv.txt"
 
 END_TITV_CODING_NOVEL=`date '+%s'`
 
@@ -52,7 +52,7 @@ echo $SM_TAG"_"$IN_PROJECT",L.01,TITV_CODING_NOVEL,"$HOSTNAME","$START_TITV_CODI
 
 # echo zcat $CORE_PATH/$OUT_PROJECT/TEMP/$SM_TAG".QC.Coding.Novel.TiTv.vcf.gz" \
 # | $SAMTOOLS_DIR/bcftools/vcfutils.pl qstats /dev/stdin \
-# \>\| $CORE_PATH/$OUT_PROJECT/REPORTS/TI_TV/CODING/$SM_TAG"_Coding_Novel_titv.txt" \
+# \>\| $CORE_PATH/$OUT_PROJECT/REPORTS/TI_TV_MS/CODING/$SM_TAG"_Coding_Novel_titv.txt" \
 # >> $CORE_PATH/$IN_PROJECT/COMMAND_LINES/$SM_TAG".COMMAND_LINES.txt"
 
 echo >> $CORE_PATH/$IN_PROJECT/COMMAND_LINES/$SM_TAG".COMMAND_LINES.txt"
