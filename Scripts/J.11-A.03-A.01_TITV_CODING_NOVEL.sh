@@ -34,11 +34,12 @@ OUT_PROJECT=$4
 SM_TAG=$5
 
 # TI/TV CODING NOVEL
+# Changed /dev/stdin to - ...will see if that will help with the random null file creation
 
 START_TITV_CODING_NOVEL=`date '+%s'`
 
 zcat $CORE_PATH/$OUT_PROJECT/TEMP/$SM_TAG".QC.Coding.Novel.TiTv.vcf.gz" \
-| $SAMTOOLS_DIR/bcftools/vcfutils.pl qstats /dev/stdin \
+| $SAMTOOLS_DIR/bcftools/vcfutils.pl qstats - \
 >| $CORE_PATH/$OUT_PROJECT/REPORTS/TI_TV_MS/CODING/$SM_TAG"_Coding_Novel_titv.txt"
 
 END_TITV_CODING_NOVEL=`date '+%s'`

@@ -34,11 +34,12 @@ OUT_PROJECT=$4
 SM_TAG=$5
 
 # TI/TV WG KNOWN
+# Changed /dev/stdin to - ...will see if that will help with the random null file creation
 
 START_TITV_WG_KNOWN=`date '+%s'`
 
 zcat $CORE_PATH/$OUT_PROJECT/TEMP/$SM_TAG".QC.WG.Known.TiTv.vcf.gz" \
-| $SAMTOOLS_DIR/bcftools/vcfutils.pl qstats /dev/stdin \
+| $SAMTOOLS_DIR/bcftools/vcfutils.pl qstats - \
 >| $CORE_PATH/$OUT_PROJECT/REPORTS/TI_TV_MS/WHOLE_GENOME/$SM_TAG"_WG_Known_titv.txt"
 
 END_TITV_WG_KNOWN=`date '+%s'`
