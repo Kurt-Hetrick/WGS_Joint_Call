@@ -39,8 +39,7 @@ START_TITV_WG_NOVEL=`date '+%s'`
 
 # Changed /dev/stdin to - ...will see if that will help with the random null file creation
 
-zcat $CORE_PATH/$OUT_PROJECT/TEMP/$SM_TAG".QC.WG.Novel.TiTv.vcf.gz" \
-| $SAMTOOLS_DIR/bcftools/vcfutils.pl qstats - \
+$SAMTOOLS_DIR/bcftools/vcfutils.pl qstats $CORE_PATH/$OUT_PROJECT/TEMP/$SM_TAG".QC.WG.Novel.TiTv.vcf" \
 >| $CORE_PATH/$OUT_PROJECT/REPORTS/TI_TV_MS/WHOLE_GENOME/$SM_TAG"_WG_Novel_titv.txt"
 
 END_TITV_WG_NOVEL=`date '+%s'`

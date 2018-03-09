@@ -48,7 +48,7 @@ $JAVA_1_7/java -jar $GATK_DIR/GenomeAnalysisTK.jar \
 -K $GATK_KEY \
 --variant $CORE_PATH/$OUT_PROJECT/SNV/MULTI/CODING/PASS_VARIANT/$SM_TAG".CODING.SNV.VARIANT.PASS.vcf.gz" \
 --discordance $DBSNP_129 \
--o $CORE_PATH/$OUT_PROJECT/TEMP/$SM_TAG".QC.Coding.Novel.TiTv.vcf.gz"
+-o $CORE_PATH/$OUT_PROJECT/TEMP/$SM_TAG".QC.Coding.Novel.TiTv.vcf"
 
 END_EXTRACT_CODING_NOVEL=`date '+%s'`
 
@@ -64,7 +64,7 @@ echo $JAVA_1_7/java -jar $GATK_DIR/GenomeAnalysisTK.jar \
 -K $GATK_KEY \
 --variant $CORE_PATH/$OUT_PROJECT/SNV/MULTI/CODING/PASS_VARIANT/$SM_TAG".CODING.SNV.VARIANT.PASS.vcf.gz" \
 --discordance $DBSNP_129 \
--o $CORE_PATH/$OUT_PROJECT/TEMP/$SM_TAG".QC.Coding.Novel.TiTv.vcf.gz" \
+-o $CORE_PATH/$OUT_PROJECT/TEMP/$SM_TAG".QC.Coding.Novel.TiTv.vcf" \
 >> $CORE_PATH/$IN_PROJECT/COMMAND_LINES/$SM_TAG".COMMAND_LINES.txt"
 
 echo >> $CORE_PATH/$IN_PROJECT/COMMAND_LINES/$SM_TAG".COMMAND_LINES.txt"

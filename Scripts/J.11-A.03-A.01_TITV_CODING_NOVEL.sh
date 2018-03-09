@@ -38,8 +38,7 @@ SM_TAG=$5
 
 START_TITV_CODING_NOVEL=`date '+%s'`
 
-zcat $CORE_PATH/$OUT_PROJECT/TEMP/$SM_TAG".QC.Coding.Novel.TiTv.vcf.gz" \
-| $SAMTOOLS_DIR/bcftools/vcfutils.pl qstats - \
+$SAMTOOLS_DIR/bcftools/vcfutils.pl qstats $CORE_PATH/$OUT_PROJECT/TEMP/$SM_TAG".QC.Coding.Novel.TiTv.vcf" \
 >| $CORE_PATH/$OUT_PROJECT/REPORTS/TI_TV_MS/CODING/$SM_TAG"_Coding_Novel_titv.txt"
 
 END_TITV_CODING_NOVEL=`date '+%s'`

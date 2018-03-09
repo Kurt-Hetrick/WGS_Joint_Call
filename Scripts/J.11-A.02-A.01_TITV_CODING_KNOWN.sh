@@ -39,8 +39,7 @@ START_TITV_CODING_KNOWN=`date '+%s'`
 
 # Changed /dev/stdin to - ...will see if that will help with the random null file creation
 
-zcat $CORE_PATH/$OUT_PROJECT/TEMP/$SM_TAG".QC.Coding.Known.TiTv.vcf.gz" \
-| $SAMTOOLS_DIR/bcftools/vcfutils.pl qstats - \
+$SAMTOOLS_DIR/bcftools/vcfutils.pl qstats $CORE_PATH/$OUT_PROJECT/TEMP/$SM_TAG".QC.Coding.Known.TiTv.vcf" \
 >| $CORE_PATH/$OUT_PROJECT/REPORTS/TI_TV_MS/CODING/$SM_TAG"_Coding_Known_titv.txt"
 
 END_TITV_CODING_KNOWN=`date '+%s'`

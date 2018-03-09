@@ -294,6 +294,28 @@ ls $CORE_PATH/$PROJECT/REPORTS/ALIGNMENT_SUMMARY/*_alignment_summary_metrics.txt
 | sed 's/ /\t/g' \
 >| $CORE_PATH/$PROJECT/TEMP/ALIGNMENT_SUMMARY_READ_PAIR_METRICS.TXT
 
+# FILTERED LUMPY AND SVTYPER STATISTICS
+
+# For giggles; these are the escapes
+# \x22 double quote...can be screwed
+# \042 also for double when \x22 does not work.
+# \x27 single quote
+
+ls $CORE_PATH$PROJECT/LUMPY/VCF/*.LUMPY.GT.FILTERED.txt \
+| awk '{split($1,SMtag,"/");print "zgrep -v \x22^#\x22","'$CORE_PATH'""'$PROJECT'""/LUMPY/VCF/"SMtag[8],\
+"| awk \x27$1~/^[0-9]/\x27 \
+| awk \x27{COUNT_SV++NR} \
+{DEL+=($4==\042DEL\x22)} \
+{DUP+=($4==\042DUP\x22)} \
+{INV+=($4==\042INV\x22)} \
+{BND+=($4==\042BND\x22)} \
+END {print \x22"SMtag[8]"\x22,COUNT_SV,DEL,DUP,INV,BND}\x27"}' \
+| bash \
+| sed 's/.LUMPY.GT.FILTERED.txt//g' \
+| sed 's/ /\t/g' \
+| awk 'BEGIN {print "SM_TAG""\t""COUNT_SV""\t""COUNT_DEL""\t""COUNT_DUP""\t""COUNT_INV""\t""COUNT_BND"} {print $1"\t"$2"\t"$3"\t"$4"\t"$5"\t"$6}' \
+>| $CORE_PATH/$PROJECT/TEMP/LUMPY_SV_STATS.TXT
+
 # Joining all of the files together to make a QC report
 
 TIMESTAMP=`date '+%F.%H-%M-%S'`
@@ -319,6 +341,7 @@ join -j 1 $CORE_PATH/$PROJECT/TEMP/CONCORDANCE_WG.txt $CORE_PATH/$PROJECT/TEMP/V
 | join -j 1 - $CORE_PATH/$PROJECT/TEMP/ALIGNMENT_SUMMARY_READ_1_METRICS.TXT \
 | join -j 1 - $CORE_PATH/$PROJECT/TEMP/ALIGNMENT_SUMMARY_READ_2_METRICS.TXT \
 | join -j 1 - $CORE_PATH/$PROJECT/TEMP/ALIGNMENT_SUMMARY_READ_PAIR_METRICS.TXT \
+| join -j 1 - $CORE_PATH/$PROJECT/TEMP/LUMPY_SV_STATS.TXT \
 | sed 's/ /,/g' \
 >| $CORE_PATH/$PROJECT/REPORTS/QC_REPORTS/$PROJECT".MULTI_SAMPLE_QC."$TIMESTAMP".csv"
 

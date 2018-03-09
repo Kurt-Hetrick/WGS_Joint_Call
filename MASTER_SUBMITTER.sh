@@ -11,7 +11,7 @@ PREFIX=$3
 
 module load datamash
 
-QUEUE_LIST=`qstat -f -s r | egrep -v "^[0-9]|^-|^queue" | cut -d @ -f 1 | sort | uniq | egrep -v "bigmem.q|all.q|cgc.q|programmers.q" | datamash collapse 1 | awk '{print "-q",$1}'`
+QUEUE_LIST=`qstat -f -s r | egrep -v "^[0-9]|^-|^queue" | cut -d @ -f 1 | sort | uniq | egrep -v "bigmem.q|all.q|cgc.q|programmers.q|uhoh.q|rhel7.q|lemon.q" | datamash collapse 1 | awk '{print "-q",$1}'`
 
 ##############FIXED DIRECTORIES###############
 
@@ -400,7 +400,7 @@ TITV_WG_KNOWN(){
 echo \
  qsub $QUEUE_LIST \
  -N J05-A02-A01_TITV_WG_KNOWN_$UNIQUE_ID_SM_TAG \
- -hold_jid J05_EXTRACT_SNV_WG_PASS_VARIANT_$UNIQUE_ID_SM_TAG \
+ -hold_jid J05-A02_EXTRACT_WG_KNOWN_$UNIQUE_ID_SM_TAG \
  -j y -o $CORE_PATH/$PROJECT/LOGS/J05-A02-A01_TITV_WG_KNOWN_$SM_TAG.log \
  $SCRIPT_DIR/J.05-A.02-A.01_TITV_WG_KNOWN.sh \
  $SAMTOOLS_DIR $CORE_PATH \
@@ -422,7 +422,7 @@ TITV_WG_NOVEL(){
 echo \
  qsub $QUEUE_LIST \
  -N J05-A03-A01_TITV_WG_NOVEL_$UNIQUE_ID_SM_TAG \
- -hold_jid J05_EXTRACT_SNV_WG_PASS_VARIANT_$UNIQUE_ID_SM_TAG \
+ -hold_jid J05-A03_EXTRACT_WG_NOVEL_$UNIQUE_ID_SM_TAG \
  -j y -o $CORE_PATH/$PROJECT/LOGS/J05-A03-A01_TITV_WG_NOVEL_$SM_TAG.log \
  $SCRIPT_DIR/J.05-A.03-A.01_TITV_WG_NOVEL.sh \
  $SAMTOOLS_DIR $CORE_PATH \
@@ -544,7 +544,7 @@ TITV_CODING_KNOWN(){
 echo \
  qsub $QUEUE_LIST \
  -N J11-A02-A01_TITV_CODING_KNOWN_$UNIQUE_ID_SM_TAG \
- -hold_jid J11_EXTRACT_SNV_CODING_PASS_VARIANT_$UNIQUE_ID_SM_TAG \
+ -hold_jid J11-A02_EXTRACT_CODING_KNOWN_$UNIQUE_ID_SM_TAG \
  -j y -o $CORE_PATH/$PROJECT/LOGS/J11-A02-A01_TITV_CODING_KNOWN_$SM_TAG.log \
  $SCRIPT_DIR/J.11-A.02-A.01_TITV_CODING_KNOWN.sh \
  $SAMTOOLS_DIR $CORE_PATH \
@@ -566,7 +566,7 @@ TITV_CODING_NOVEL(){
 echo \
  qsub $QUEUE_LIST \
  -N J11-A03-A01_TITV_CODING_NOVEL_$UNIQUE_ID_SM_TAG \
- -hold_jid J11_EXTRACT_SNV_CODING_PASS_VARIANT_$UNIQUE_ID_SM_TAG \
+ -hold_jid J11-A03_EXTRACT_CODING_NOVEL_$UNIQUE_ID_SM_TAG \
  -j y -o $CORE_PATH/$PROJECT/LOGS/J11-A03-A01_TITV_CODING_NOVEL_$SM_TAG.log \
  $SCRIPT_DIR/J.11-A.03-A.01_TITV_CODING_NOVEL.sh \
  $SAMTOOLS_DIR $CORE_PATH \
