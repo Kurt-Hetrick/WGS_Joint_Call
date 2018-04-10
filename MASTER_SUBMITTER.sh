@@ -11,7 +11,7 @@ PREFIX=$3
 
 module load datamash
 
-QUEUE_LIST=`qstat -f -s r | egrep -v "^[0-9]|^-|^queue" | cut -d @ -f 1 | sort | uniq | egrep -v "bigmem.q|all.q|cgc.q|programmers.q|uhoh.q|rhel7.q|lemon.q" | datamash collapse 1 | awk '{print "-q",$1}'`
+QUEUE_LIST=`qstat -f -s r | egrep -v "^[0-9]|^-|^queue" | cut -d @ -f 1 | sort | uniq | egrep -v "bigmem.q|all.q|cgc.q|programmers.q|rhel7.q|lemon.q" | datamash collapse 1 | awk '{print "-q",$1}'`
 
 ##############FIXED DIRECTORIES###############
 
