@@ -19,6 +19,8 @@ CORE_PATH=$9
 PROJECT=${10}
 PREFIX=${11}
 
+# taking out FS for Finkbeiner
+
 CMD=$JAVA_1_7'/java -jar'
 CMD=$CMD' '$GATK_DIR'/GenomeAnalysisTK.jar'
 CMD=$CMD' -T VariantRecalibrator'
@@ -34,7 +36,6 @@ CMD=$CMD' -an MQRankSum'
 CMD=$CMD' -an MQ'
 CMD=$CMD' -an ReadPosRankSum'
 CMD=$CMD' -an SOR'
-CMD=$CMD' -an FS'
 CMD=$CMD' -an DP'
 CMD=$CMD' -tranche 100.0'
 CMD=$CMD' -tranche 99.9'
